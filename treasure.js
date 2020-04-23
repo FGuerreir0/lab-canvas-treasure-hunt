@@ -1,7 +1,7 @@
 class Treasure {
-    constructor(row, col) {
-        this.row = row;
-        this.col = col;
+    constructor() {
+        this.row = 0;
+        this.col = 0;
         this.image = new Image();
         this.image.src = 'images/treasure.png';
 
