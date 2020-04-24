@@ -1,0 +1,10 @@
+.points {
+    max-width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.result {
+    font-size: 24px
+}

@@ -11,7 +11,6 @@ function pushResult(result) {
     $resultParagraph.innerText = result;
 }
 
-
 // Iteration 1
 function drawGrid() {
     context.strokeStyle = "black";
@@ -23,7 +22,6 @@ function drawGrid() {
         context.stroke();
     }
     for (let y = 0; y <= height; y += 50) {
-        //context.strokeStyle = "black";
         context.beginPath();
         context.moveTo(0, y);
         context.lineTo(width, y);
@@ -45,92 +43,118 @@ function clearCanvas() {
     context.clearRect(0, 0, width, height);
 }
 
+function drawEverything() {
+    drawGrid();
+    drawTreasure();
+    drawPlayer();
+}
+
 const player = new Character(0, 0); // (0,0) = Initial position
 const paintTreasure = new Treasure();
 paintTreasure.setRandomPosition();
 
-player.moveDown(); // Increase by 1 the value of player.row
-player.moveDown(); // Increase by 1 the value of player.row
-player.moveRight();
 
-function drawEverything() {
-    drawGrid();
-    pushResult(result);
-
-    drawTreasure();
-    drawPlayer();
-}
 window.addEventListener("load", function(event) {
+    paintTreasure.setRandomPosition();
     drawEverything();
+    //TEST IF LOAD ALL IMAGES;
+    player.moveDown();
+    player.moveLeft();
+    player.moveRight();
+    player.moveUp();
+    player.col = 0;
+    player.row = 0;
+
 });
-
-
 //window.addEventListener("load", function(event) {
 window.addEventListener('keydown', (event) => {
     event.preventDefault();
+
     switch (event.keyCode) {
         case 37:
+            //LEFT
+            //window.addEventListener("load", function(event) {
+            player.moveLeft();
+            clearCanvas();
+            drawEverything();
+            console.log(`Player col ${player.col} row ${player.row}`);
+            console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
             if (player.col === paintTreasure.col && player.row === paintTreasure.row) {
-                player.moveLeft();
+                result++;
+                pushResult(result);
                 clearCanvas();
                 paintTreasure.setRandomPosition();
+                player.moveLeft();
                 drawEverything();
-                result++;
+                console.log(`Player col ${player.col} row ${player.row}`);
+                console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
                 break;
             } else {
-                console.log('left');
-                player.moveLeft();
-                clearCanvas();
-                drawEverything();
                 break;
             }
+            //})
+
         case 38:
+            //UP
+            player.moveUp();
+            clearCanvas();
+            drawEverything();
+            console.log(`Player col ${player.col} row ${player.row}`);
+            console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
             if (player.col === paintTreasure.col && player.row === paintTreasure.row) {
+                result++;
+                pushResult(result);
                 player.moveUp();
                 paintTreasure.setRandomPosition();
                 clearCanvas();
                 drawTreasure();
                 drawEverything();
-                result++;
+                console.log(`Player col ${player.col} row ${player.row}`);
+                console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
                 break;
             } else {
-                console.log('up');
-                player.moveUp();
-                clearCanvas();
-                drawEverything();
                 break;
             }
         case 39:
+            //RIGHT
+            clearCanvas();
+            player.moveRight();
+            drawEverything();
+            console.log(`Player col ${player.col} row ${player.row}`);
+            console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
             if (player.col === paintTreasure.col && player.row === paintTreasure.row) {
-                player.moveRight();
+                result++;
+                pushResult(result);
                 paintTreasure.setRandomPosition();
                 clearCanvas();
+                player.moveRight();
                 drawTreasure();
                 drawEverything();
-                result++;
+                console.log(`Player col ${player.col} row ${player.row}`);
+                console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
                 break;
             } else {
-                console.log('right');
-                player.moveRight();
-                clearCanvas();
-                drawEverything();
                 break;
             }
         case 40:
+            //DOWN
+            player.moveDown();
             clearCanvas();
+            drawEverything();
+            console.log(`Player col ${player.col} row ${player.row}`);
+            console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
             if (player.col === paintTreasure.col && player.row === paintTreasure.row) {
+                result++;
+                pushResult(result);
                 player.moveDown();
                 paintTreasure.setRandomPosition();
                 clearCanvas();
                 drawTreasure();
                 drawEverything();
-                result++;
+                console.log(`Player col ${player.col} row ${player.row}`);
+                console.log(`Treasure col ${paintTreasure.col} row ${paintTreasure.row}`);
                 break;
             } else {
-                console.log('down');
-                player.moveDown();
-                clearCanvas();
-                drawEverything();
                 break;
             }
     }
